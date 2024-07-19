@@ -1,0 +1,11 @@
+{
+  "urls": [
+    ["lib/__init__.py", "github:Linnaar/mela_example/mela-lib/__init__.py"],
+    ["lib/version.py", "github:Linnaar/mela_example/mela-lib/version.py"],
+    ["lib/mela.py", "github:Linnaar/mela_example/mela-lib/mela.py"]
+  ],
+  "deps": [
+    ["collections-defaultdict", "latest"]
+  ],
+  "version": "0.0.1"
+}
