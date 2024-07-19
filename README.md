@@ -1,9 +1,9 @@
-# mela_example
+# Mela 
 Mela library example package
 
 # Install
 
-To install run this command `mpremote mip install `
+To install run this command `mpremote mip install github:Linnaar/mela_example`
 
 # Usage
 
