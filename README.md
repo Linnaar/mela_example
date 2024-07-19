@@ -3,7 +3,7 @@ Mela library example package
 
 # Install
 
-To install run this command `mpremote mip install github:Linnaar/mela_example`
+Run this command to install `mpremote mip install github:Linnaar/mela_example`
 
 # Usage
 
