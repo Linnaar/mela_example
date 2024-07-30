@@ -96,7 +96,9 @@ class Mela_info:
         count=count+1
         ssid = ssid.decode('utf-8')
         encrypted = authmode > 0
-        print("%d ssid: %s chan: %d rssi: %d authmode: %s" % (count, ssid, channel, rssi, AUTHMODE.get(authmode, '?')))
+        hidden_bool= hidden > 0
+        bssid_hex=binascii.hexlify(bssid) 
+        print("%d ssid: %s bssid %s chan: %d rssi: %d authmode: %s hidden %s" % (count, ssid, bssid_hex,channel, rssi, AUTHMODE.get(authmode, '?'),hidden_bool))
     except:
       print('WLAN connection problem')
         
