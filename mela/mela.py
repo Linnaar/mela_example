@@ -95,7 +95,7 @@ class Mela_info:
       for ssid, bssid, channel, rssi, authmode, hidden in sorted(wlans, key=lambda x: x[3], reverse=True):
         count=count+1
         ssid = ssid.decode('utf-8')      
-        print("%d ssid: %s MAC %s chan: %d rssi: %d authmode: %s" % (count, ssid, bssid.hex('-'),channel, rssi, AUTHMODE.get(authmode, '?')))
+        print("%d ssid: %s chan: %d rssi: %d authmode: %s bssid: %s" % (count, ssid, channel, rssi, AUTHMODE.get(authmode, '?'), bssid.hex('-')))
     except:
       print('WLAN connection problem')
         
