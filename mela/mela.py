@@ -85,6 +85,7 @@ class Mela_info:
 
   def wlan_scan(self):
     import network
+    import binascii
     try:
       sta_if=network.WLAN(network.STA_IF)
       sta_if.active(True)
