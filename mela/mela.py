@@ -85,7 +85,6 @@ class Mela_info:
 
   def wlan_scan(self):
     import network
-    import binascii
     try:
       sta_if=network.WLAN(network.STA_IF)
       sta_if.active(True)
@@ -95,11 +94,8 @@ class Mela_info:
       count=0
       for ssid, bssid, channel, rssi, authmode, hidden in sorted(wlans, key=lambda x: x[3], reverse=True):
         count=count+1
-        ssid = ssid.decode('utf-8')
-        encrypted = authmode > 0
-        hidden_bool= hidden > 0
-        bssid_hex=binascii.hexlify(bssid) 
-        print("%d ssid: %s bssid %s chan: %d rssi: %d authmode: %s hidden %s" % (count, ssid, bssid_hex,channel, rssi, AUTHMODE.get(authmode, '?'),hidden_bool))
+        ssid = ssid.decode('utf-8')      
+        print("%d ssid: %s MAC %s chan: %d rssi: %d authmode: %s" % (count, ssid, bssid.hex('-'),channel, rssi, AUTHMODE.get(authmode, '?')))
     except:
       print('WLAN connection problem')
         
