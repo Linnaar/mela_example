@@ -17,17 +17,8 @@ class Mela:
     self.settings=Mela_settings()
     self.wifi=False
  
-    try:
-      if self.settings.wifi['connect_on_boot']:
-        import network
-        sta_if=network.WLAN(network.STA_IF)
-        sta_if.active(True)
-        #wlan_networks=sta_if.scan()
-        #print(wlan_networks)
-        sta_if.connect(self.settings.wifi['ssid'],self.settings.wifi['key'])
-        self.wifi=sta_if
-    except:
-      print('WLAN connection problem')
+    if self.settings.wifi['connect_on_boot']:
+      self.wlan_connect()
       
   def wlan_connect(self):
     import network
@@ -38,7 +29,18 @@ class Mela:
       print('WLAN already connected. Board IP: %s' % sta_if.ifconfig()[0])
       return True  
     try:
-      print('Trying to connect to:', self.settings.wifi['ssid'])
+      wlan_found=False
+      print("Scanning WLANs")
+      wlans=self.info.wlan_scan(False)
+      for ssid, bssid, channel, rssi, authmode, hidden in sorted(wlans, key=lambda x: x[3], reverse=True):        
+        ssid = ssid.decode('utf-8')
+        if ssid==self.settings.wifi['ssid']:
+          print("WLAN ssid: %s found at chan: %d rssi: %d bssid: %s" % (count, ssid, channel, rssi, bssid.hex('-')))
+          wlan_found=True
+      if not wlan_found:
+        print("WLAN not found!")
+        return False
+      print('Trying to connect...')
       sta_if.connect(self.settings.wifi['ssid'],self.settings.wifi['key'])
       for _ in range(1000):
         if sta_if.isconnected():
