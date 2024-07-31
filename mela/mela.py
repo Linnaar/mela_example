@@ -1,6 +1,7 @@
 import gc
 import os
 import ujson as json
+from builtins import True
 #======================================================================================================
 
 
@@ -35,7 +36,7 @@ class Mela:
     sta_if=network.WLAN(network.STA_IF)
     sta_if.active(True)
     if sta_if.isconnected():
-      print("WLAN already connected")
+      print('WLAN already connected. Board IP: %s' % sta_if.ifconfig()[0])
       return True  
     try:
       print('Trying to connect to:', self.settings.wifi['ssid'])
@@ -109,19 +110,22 @@ class Mela_info:
     P = '{0:.2f}%'.format(F/T*100)
     return ('RAM: Total:{0} bytes Free:{1} bytes ({2})'.format(T,F,P))
 
-  def wlan_scan(self):
+  def wlan_scan(self, prn=True):
     import network
     try:
       sta_if=network.WLAN(network.STA_IF)
       sta_if.active(True)
       print("WLAN interface activated. Starting scan...")      
       wlans=sta_if.scan()
-      AUTHMODE = {0: "open", 1: "WEP", 2: "WPA-PSK", 3: "WPA2-PSK", 4: "WPA/WPA2-PSK"}
-      count=0
-      for ssid, bssid, channel, rssi, authmode, hidden in sorted(wlans, key=lambda x: x[3], reverse=True):
-        count=count+1
-        ssid = ssid.decode('utf-8')      
-        print("%d ssid: %s chan: %d rssi: %d authmode: %s bssid: %s" % (count, ssid, channel, rssi, AUTHMODE.get(authmode, '?'), bssid.hex('-')))
+      if prn:
+        AUTHMODE = {0: "open", 1: "WEP", 2: "WPA-PSK", 3: "WPA2-PSK", 4: "WPA/WPA2-PSK"}
+        count=0
+        for ssid, bssid, channel, rssi, authmode, hidden in sorted(wlans, key=lambda x: x[3], reverse=True):
+          count=count+1
+          ssid = ssid.decode('utf-8')      
+          print("%d ssid: %s chan: %d rssi: %d authmode: %s bssid: %s" % (count, ssid, channel, rssi, AUTHMODE.get(authmode, '?'), bssid.hex('-')))
+    else:
+      return wlans
     except:
       print('WLAN connection problem')
         
