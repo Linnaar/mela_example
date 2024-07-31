@@ -51,7 +51,7 @@ class Mela:
         return False
       print('Trying to connect...')
       sta_if.connect(self.settings.wifi['ssid'],self.settings.wifi['key'])
-      for _ in range(1000):
+      for _ in range(10000):
         if sta_if.isconnected():
           print('\nConnected! Board IP: %s' % sta_if.ifconfig()[0])
           self.wifi=sta_if
@@ -61,8 +61,10 @@ class Mela:
           time.sleep_ms(100)
       print('\nConnection failed!')
       sta_if.disconnect()
+      sta_if.active(False)
+      return False
     except:
-      print('WLAN connection problem')   
+      print('\nWLAN connection problem')   
       return False 
     
 
