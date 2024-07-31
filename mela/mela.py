@@ -39,7 +39,7 @@ class Mela:
           print("WLAN ssid: %s found at chan: %d rssi: %d bssid: %s" % (ssid, channel, rssi, bssid.hex('-')))
           wlan_found=True
       if not wlan_found:
-        print("WLAN not found!")
+        print("WLAN %s not found!" % self.settings.wifi['ssid'])
         return False
       print('Trying to connect...')
       sta_if.connect(self.settings.wifi['ssid'],self.settings.wifi['key'])
