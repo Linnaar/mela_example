@@ -20,6 +20,14 @@ class Mela:
     if self.settings.wifi['connect_on_boot']:
       self.wlan_connect()
       
+  def wlan_disconnect(self):
+    import network
+    
+    sta_if=network.WLAN(network.STA_IF)
+    sta_if.active(True)
+    sta_if.disconnect()
+    sta_if.active(False)
+      
   def wlan_connect(self):
     import network
     import utime as time
