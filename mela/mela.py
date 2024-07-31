@@ -23,6 +23,7 @@ class Mela:
   def wlan_connect(self):
     import network
     import utime as time
+    
     sta_if=network.WLAN(network.STA_IF)
     sta_if.active(True)
     if sta_if.isconnected():
@@ -76,7 +77,7 @@ class Mela_settings:
         return json.load(settings_file)
     except:
       print("Settings file read problem. Returning default configuration.")
-      return {'settings': {'wifi': {'connect_on_boot': False, 'ssid': 'LAN', 'key': '12345'}}} 
+      return {'settings': {'wifi': {'connect_on_boot': False, 'networks': [{'ssid': 'LAN', 'key': '12345'}]}}} 
 
   def save_settings(self):
     try:
@@ -136,7 +137,8 @@ class Mela_info:
         sta_if=network.WLAN(network.STA_IF)
         sta_if.active(True)
         STATUS={1000: "STAT_IDLE", 1001: " STAT_CONNECTING", 202: "STAT_WRONG_PASSWORD", 201: "STAT_NO_AP_FOUND", 1010: "STAT_GOT_IP", 203: "STAT_ASSOC_FAIL", 200: "STAT_BEACON_TIMEOUT", 204: "STAT_HANDSHAKE_TIMEOUT"}
-        print("Current WLAN status: %s" % STATUS.get(sta_if.status(), '?'))
+        PM_MODES={0: 'PM_NONE', 1: 'PM_PERFORMANCE', 2: 'PM_POWERSAVE'}
+        print("Current WLAN status: %s, power mode: %s, TX power: %s, MAC %s, ssid: %s, ch: %s" % (STATUS.get(sta_if.status(), '?'), PM_MODES.get(sta_if.config('pm'), '?'),sta_if.config('txpower'),sta_if.config('mac').hex('-'),sta_if.config('ssid'),sta_if.config('channel')))
       except:
         print('WLAN connection problem')
     
