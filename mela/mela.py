@@ -1,7 +1,6 @@
 import gc
 import os
 import ujson as json
-from builtins import True
 #======================================================================================================
 
 
