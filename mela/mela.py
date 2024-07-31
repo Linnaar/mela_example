@@ -123,8 +123,8 @@ class Mela_info:
           count=count+1
           ssid = ssid.decode('utf-8')      
           print("%d ssid: %s chan: %d rssi: %d authmode: %s bssid: %s" % (count, ssid, channel, rssi, AUTHMODE.get(authmode, '?'), bssid.hex('-')))
-    else:
-      return wlans
+      else:
+        return wlans
     except:
       print('WLAN connection problem')
         
