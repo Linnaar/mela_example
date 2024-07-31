@@ -47,8 +47,8 @@ class Mela:
         else:
           print('.', end='')
           time.sleep_ms(100)
-        print('\nConnection failed!')
-        sta_if.disconnect()
+      print('\nConnection failed!')
+      sta_if.disconnect()
     except:
       print('WLAN connection problem')    
     
