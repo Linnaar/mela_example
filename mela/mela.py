@@ -1,6 +1,7 @@
 import gc
 import os
 import ujson as json
+from builtins import True
 #======================================================================================================
 
 
@@ -36,21 +37,23 @@ class Mela:
     sta_if.active(True)
     if sta_if.isconnected():
       print("WLAN already connected")
-      return sta_if  
+      return True  
     try:
       print('Trying to connect to:', self.settings.wifi['ssid'])
       sta_if.connect(self.settings.wifi['ssid'],self.settings.wifi['key'])
-      for _ in range(100):
+      for _ in range(1000):
         if sta_if.isconnected():
-          print('\nConnected! Network information:', sta_if.ifconfig())
-          return sta_if
+          print('\nConnected! Board IP: %s' % sta_if.ifconfig()[0])
+          self.wifi=sta_if
+          return True
         else:
           print('.', end='')
           time.sleep_ms(100)
       print('\nConnection failed!')
       sta_if.disconnect()
     except:
-      print('WLAN connection problem')    
+      print('WLAN connection problem')   
+      return False 
     
 
 #--------------------------------------------------------------------
