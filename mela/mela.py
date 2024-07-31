@@ -28,6 +28,30 @@ class Mela:
         self.wifi=sta_if
     except:
       print('WLAN connection problem')
+      
+  def wlan_connect(self):
+    import network
+    import utime as time
+    sta_if=network.WLAN(network.STA_IF)
+    sta_if.active(True)
+    if sta_if.isconnected():
+      print("WLAN already connected")
+      return sta_if  
+    try:
+      print('Trying to connect to:', self.settings.wifi['ssid'])
+      sta_if.connect(self.settings.wifi['ssid'],self.settings.wifi['key'])
+      for _ in range(100):
+        if self.wlan_sta.isconnected():
+          print('\nConnected! Network information:', sta_if.ifconfig())
+          return sta_if
+        else:
+          print('.', end='')
+          time.sleep_ms(100)
+        print('\nConnection failed!')
+        sta_if.disconnect()
+    except:
+      print('WLAN connection problem')    
+    
 
 #--------------------------------------------------------------------
 #
@@ -99,3 +123,13 @@ class Mela_info:
     except:
       print('WLAN connection problem')
         
+    def wlan_status(self):
+      import network
+      try:
+        sta_if=network.WLAN(network.STA_IF)
+        sta_if.active(True)
+        status={1000: "STAT_IDLE", 1001: " STAT_CONNECTING", 202: "STAT_WRONG_PASSWORD", 201: "STAT_NO_AP_FOUND", 1010: "STAT_GOT_IP", 203: "STAT_ASSOC_FAIL", 200: "STAT_BEACON_TIMEOUT", 204: "STAT_HANDSHAKE_TIMEOUT"}
+        print("Current WLAN status: %s" % status.get(sta_if.status(), '?'))
+      except:
+        print('WLAN connection problem')
+    
