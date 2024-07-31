@@ -35,7 +35,7 @@ class Mela:
       for ssid, bssid, channel, rssi, authmode, hidden in sorted(wlans, key=lambda x: x[3], reverse=True):        
         ssid = ssid.decode('utf-8')
         if ssid==self.settings.wifi['ssid']:
-          print("WLAN ssid: %s found at chan: %d rssi: %d bssid: %s" % (count, ssid, channel, rssi, bssid.hex('-')))
+          print("WLAN ssid: %s found at chan: %d rssi: %d bssid: %s" % (ssid, channel, rssi, bssid.hex('-')))
           wlan_found=True
       if not wlan_found:
         print("WLAN not found!")
