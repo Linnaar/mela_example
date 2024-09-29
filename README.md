@@ -12,7 +12,7 @@ Example of usage:
 ```
 from mela import Mela
 plc=Mela()
-print(plc.info.free)
+print(plc.info.free())
 ```
 
 ## Classes
@@ -23,7 +23,7 @@ The main class for the Mela board.
 
 #### Methods
 
-- `__init__()`: Initializes the Mela board with its components and configurations.
+- `__init__()`: Initializes the Mela board with its components and configurations. 
 - `wlan_disconnect()`: Disconnects from the WLAN and deactivates the interface.
 - `wlan_connect()`: Connects to the WLAN using the configuration provided.
 
@@ -34,10 +34,17 @@ A class to manage saving and loading configuration for the Mela board.
 #### Methods
 
 - `__init__()`: Initializes the MelaConfig class and loads the configuration.
-- `modbus()`: Returns the Modbus configuration.
-- `modbus_slave485()`: Returns the Modbus Slave 485 configuration.
-- `modbus_master485()`: Returns the Modbus Master 485 configuration.
+- `load_config()`: Loads configuration from `config.json` file, or fall back to a default configuration if there are issues with reading or decoding the configuration file.
 - `save_config()`: Saves the current configuration to the `config.json` file.
+
+#### Properties
+
+- `wifi`: Returns the WiFi configuration.
+- `modbus`: Returns the Modbus configuration (485 and TCP).
+- `modbus_slave485`: Returns the Modbus Slave 485 configuration.
+- `modbus_master485`: Returns the Modbus Master 485 configuration.
+- `modbus_slaveTCP`: Returns the Modbus Slave TCP configuration.
+- `modbus_masterTCP`: Returns the Modbus Master TCP configuration.
 
 ### `MelaInfo`
 
@@ -54,6 +61,10 @@ A class to provide information about the Mela board.
 ### `MelaRTC`
 
 A class to manage the DS1307 RTC module on the Mela board.
+
+#### Methods
+
+- `__init__()`: Initialize the DS1307 RTC module
 
 #### Properties
 
