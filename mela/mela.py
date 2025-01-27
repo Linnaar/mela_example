@@ -243,8 +243,7 @@ class MelaConfig:
                         'masterTCP': {'port': 502, 'slave_ip': False, 'timeout': 5, 'always_reconnect': False}
                     },
                     'mqtt': {'connect_on_boot': False, 'broker': '192.168.1.40','client_id': 'esp32a0', 'user': 'sensor1', 'password': '123456qaz','always_reconnect': False}
-                }
-                
+                }                
             }
 
     def save_config(self) -> bool:
